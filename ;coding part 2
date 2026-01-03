@@ -1,0 +1,62 @@
+import java.io.*;
+
+/**
+ * FileHandlingUtility
+ * --------------------
+ * Demonstrates reading, writing, and modifying a text file in Java.
+ */
+public class FileHandlingUtility {
+
+    // File path (created in project directory)
+    private static final String FILE_NAME = "sample.txt";
+
+    public static void main(String[] args) {
+        writeToFile();
+        readFromFile();
+        modifyFile();
+        readFromFile();
+    }
+
+    /**
+     * Writes initial content to the file.
+     */
+    public static void writeToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            writer.write("Hello, this is a sample file.");
+            writer.newLine();
+            writer.write("This file demonstrates Java file handling.");
+            System.out.println("File written successfully.\n");
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads and displays file content.
+     */
+    public static void readFromFile() {
+        System.out.println("Reading file content:");
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            System.out.println();
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Modifies the file by appending new content.
+     */
+    public static void modifyFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.newLine();
+            writer.write("This line was added to modify the file.");
+            System.out.println("File modified successfully.\n");
+        } catch (IOException e) {
+            System.out.println("Error modifying file: " + e.getMessage());
+        }
+    }
+}
